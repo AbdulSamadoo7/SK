@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 import sys
+import traceback
 
 driver = None
 try:
@@ -19,11 +20,11 @@ try:
 
     driver.get("https://schoolknot.com/master-admin.php")
 
-    # Fill the "User Name" username field
-    username_field = driver.find_element(By.NAME, "user_name")
+    # Fill the "User Name" field
+    username_field = driver.find_element(By.NAME, "username")
     username_field.send_keys("abdul@schoolknot.com")
 
-    # Fill the "Password" field
+    # Fill the "Password"field
     password_field = driver.find_element(By.NAME, "pwd")
     password_field.send_keys("8790576017")
 
@@ -175,7 +176,8 @@ try:
     print("Successfully executed Manage Employees verifications and logged out!")
 
 except Exception as e:
-    print(f"An error occurred: {e}")
+    print("An error occurred. Full details:")
+    traceback.print_exc()
     if driver is not None:
         try:
             driver.save_screenshot("error_screenshot.png")
