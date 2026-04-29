@@ -28,8 +28,8 @@ try:
     password_field = driver.find_element(By.NAME, "pwd")
     password_field.send_keys("8790576017")
 
-    # Click button "Login"
-    login_btn = driver.find_element(By.ID, "loginBtn")
+    # Click button "Login"loginBtn
+    login_btn = driver.find_element(By.ID, "login_Btn")
     login_btn.click()
 
     # Wait for the OTP modal
