@@ -10,10 +10,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 import sys
 
-options = webdriver.ChromeOptions()
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-
+driver = None
 try:
+    options = webdriver.ChromeOptions()
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
     driver.get("https://schoolknot.com/master-admin.php")
 
     # Fill the "User Name" field
@@ -173,8 +176,13 @@ try:
 
 except Exception as e:
     print(f"An error occurred: {e}")
-    driver.save_screenshot("error_screenshot.png")
-    print("Screenshot saved to error_screenshot.png")
+    if driver is not None:
+        try:
+            driver.save_screenshot("error_screenshot.png")
+            print("Screenshot saved to error_screenshot.png")
+        except Exception as screenshot_err:
+            print(f"Could not save screenshot: {screenshot_err}")
     sys.exit(1)
 finally:
-    driver.quit()
+    if driver is not None:
+        driver.quit()
