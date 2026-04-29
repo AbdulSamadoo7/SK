@@ -19,11 +19,11 @@ try:
 
     driver.get("https://schoolknot.com/master-admin.php")
 
-    # Fill the "User Name" field
-    username_field = driver.find_element(By.NAME, "username")
+    # Fill the "User Name" username field
+    username_field = driver.find_element(By.NAME, "user_name")
     username_field.send_keys("abdul@schoolknot.com")
 
-    # Fill the "Password"field
+    # Fill the "Password" field
     password_field = driver.find_element(By.NAME, "pwd")
     password_field.send_keys("8790576017")
 
