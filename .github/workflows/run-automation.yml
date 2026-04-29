@@ -36,3 +36,18 @@ jobs:
         with:
           name: error_screenshot
           path: error_screenshot.png
+
+      - name: Send Error Email
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{secrets.EMAIL_USERNAME}}
+          password: ${{secrets.EMAIL_PASSWORD}}
+          subject: GitHub Actions Automation Failed
+          to: ${{secrets.EMAIL_TO}}
+          from: GitHub Actions Automation
+          body: The Schoolknot automation script failed. See the attached screenshot for the exact step where the error occurred.
+          attachments: error_screenshot.png
